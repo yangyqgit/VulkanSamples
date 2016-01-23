@@ -17,7 +17,7 @@ include_directories("${CMAKE_SOURCE_DIR}/../spirv-tools/include"
 #     the list of shader files of that type, with .vert and .frag omitted
 #   - uses glslangValidator to convert glsl to spirv
 function(sampleExtGLSLShaders SNAME)
-    set(SAMPLE_NAME ${VULKAN_VERSION}-${SNAME})
+    set(SAMPLE_NAME ${SNAME}/${SNAME})
     set(SHADER_DIR ${SAMPLES_DATA_DIR}/${VULKAN_VERSION})
     foreach(SFILE ${SAMPLE_GLSL_VERT_SHADERS})
         add_custom_command(OUTPUT ${SHADER_DIR}/${SFILE}-vert.spv
@@ -44,7 +44,7 @@ endfunction(sampleExtGLSLShaders)
 #   - assumes SAMPLE_SPIRV_SHADERS is set to list to list of spirv shsders
 #     used by the sample, with the .spv omitted
 function(sampleExtSPIRVShaders SNAME)
-    set(SAMPLE_NAME ${VULKAN_VERSION}-${SNAME})
+    set(SAMPLE_NAME ${SNAME}/${SNAME})
     set(SHADER_DIR ${SAMPLES_DATA_DIR}/${VULKAN_VERSION})
     foreach(SFILE ${SAMPLE_SPIRV_SHADERS})
         set(SHADER_FILES ${SHADER_FILES} ${SHADER_DIR}/${SFILE}.spv)
@@ -58,7 +58,7 @@ endfunction(sampleExtSPIRVShaders)
 #   - assumes S_TARGETS set to list of build targets
 function(sampleWithSingleFile)
     foreach(TARG ${S_TARGETS})
-        set(SAMPLE_NAME ${VULKAN_VERSION}-${TARG})
+        set(SAMPLE_NAME ${TARG}/${TARG})
         if(UNIX)
             add_executable(${SAMPLE_NAME} ${SAMPLE_NAME}.cpp)
             target_link_libraries(${SAMPLE_NAME} ${UTILS_NAME} ${GLSLANG_LIBRARIES} ${XCB_LIBRARIES} ${VULKAN_LOADER} ${PTHREAD} ${SPIRV_TOOLS_LIBRARIES})
@@ -75,7 +75,7 @@ endfunction(sampleWithSingleFile)
 #   - assumes S_TARGETS set to list of build targets
 function(sampleInlineGLSLShaders)
     foreach(TARG ${S_TARGETS})
-        set(SAMPLE_NAME ${VULKAN_VERSION}-${TARG})
+        set(SAMPLE_NAME ${TARG}/${TARG})
         if(UNIX)
             add_executable(${SAMPLE_NAME} ${SAMPLE_NAME}.cpp)
             target_link_libraries(${SAMPLE_NAME} ${GLSLANG_LIBRARIES} ${XCB_LIBRARIES} ${VULKAN_LOADER} ${PTHREAD})
